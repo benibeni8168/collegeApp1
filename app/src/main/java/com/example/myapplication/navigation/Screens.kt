@@ -1,4 +1,4 @@
-package navigation
+package com.example.myapplication.navigation
 
 enum class Screens {
     LoginScreen,

@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.Text
 import androidx.compose.ui.unit.sp
-import navigation.Navigation
+import com.example.myapplication.navigation.Navigation
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
