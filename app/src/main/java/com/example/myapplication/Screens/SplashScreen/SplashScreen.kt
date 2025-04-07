@@ -1,4 +1,4 @@
-package Screens.SplashScreen
+package com.example.myapplication.Screens.SplashScreen
 
 import android.annotation.SuppressLint
 import android.view.animation.OvershootInterpolator

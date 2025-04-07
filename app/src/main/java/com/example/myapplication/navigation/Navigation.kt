@@ -1,6 +1,6 @@
-package navigation
+package com.example.myapplication.navigation
 
-import Screens.SplashScreen.SplashScreen
+import com.example.myapplication.Screens.SplashScreen.SplashScreen
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
