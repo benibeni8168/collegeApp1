@@ -26,8 +26,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.savera.R
-import com.example.savera.ui.theme.ralewayfamilt
+import com.example.myapplication.R
+import com.example.myapplication.ui.theme.ralewayfamilt
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
