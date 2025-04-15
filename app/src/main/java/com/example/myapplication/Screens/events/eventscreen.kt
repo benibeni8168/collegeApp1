@@ -64,14 +64,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import com.example.savera.Model.UserInformation
-import com.example.savera.Model.events_Data
-import com.example.savera.R
-import com.example.savera.Screens.homeScreen.button
-import com.example.savera.Screens.homeScreen.textout
-import com.example.savera.ui.theme.lightrale
-import com.example.savera.ui.theme.ralewaybold
-import com.example.savera.ui.theme.ralewayfamilt
+import com.example.myapplication.Model.UserInformation
+import com.example.myapplication.Model.events_Data
+import com.example.myapplication.R
+import com.example.myapplication.Screens.homescreen.button
+import com.example.myapplication.Screens.homescreen.textout
+import com.example.myapplication.ui.theme.lightrale
+import com.example.myapplication.ui.theme.ralewaybold
+import com.example.myapplication.ui.theme.ralewayfamilt
+
 import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalDate
 import java.time.LocalTime

@@ -8,6 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.xr.scenecore.Model
 import com.example.myapplication.Model.UserInformation
 import com.example.myapplication.Model.events_Data
+import com.example.myapplication.Model.nameAndAtt
+import com.example.savera.Model.ChapterList
+import com.example.savera.Model.adminDetails
+import com.example.savera.Model.feedBackType
+import com.example.savera.Model.studentAttendanceData
+import com.example.savera.Model.syllabusshower
+import com.example.savera.Model.topicList
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
@@ -439,7 +446,7 @@ object AppRepository {
 // fetching syllabus
 
     @SuppressLint("SuspiciousIndentation")
-    fun fetchSyllabus(
+    fun <syllabusshower> fetchSyllabus(
         className: String,
         successfull: (List<syllabusshower>) -> Unit,
     ) {
@@ -459,14 +466,7 @@ object AppRepository {
                     val previous = subjects.getString("previous")
                     val status = subjects.getBoolean("completed")
                     val percentage = subjects.getLong("percentage")
-                    data.add(
-                        syllabusshower(
-                            syllabus = subjects.id,
-                            previous = previous,
-                            status = status ?: false,
-                            percentage = percentage
-                        )
-                    )
+
                 }
 
                 successfull(data)

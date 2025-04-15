@@ -53,17 +53,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.rememberImagePainter
+import com.example.myapplication.Model.nameAndAtt
 import com.example.myapplication.R
-import com.example.savera.Model.developer
-import com.example.savera.Model.nameAndAtt
+import com.example.myapplication.repositary.AppRepository
+import com.example.myapplication.ui.theme.ralewayfamilt
 
-import com.example.savera.Repository.AppRepository
-import com.example.savera.Screens.account.mainScreen.accountpic
-import com.example.savera.ui.theme.ralewayfamilt
-import com.google.firebase.auth.FirebaseAuth
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.LocalTime
@@ -424,66 +418,7 @@ fun homeui(youtubestate: MutableState<Float>, homeScreenViewModel: HomeScreenVie
     }
 
     }
-  /*  @Composable
-    fun imageShower() {
-        val x = arrayListOf(
-            developer(
-                name = "Lakshay Dureja",
-                post = "Android Developer",
-                pic = R.drawable.laskshyasir
-            ),
-            developer(
-                name = "Mannu",
-                post = "Android Developer",
-                pic = R.drawable.mannu
-            ),
-            developer(
-                name = "Alok Pandit",
-                post = "Ui Designer",
-                pic = R.drawable.alok
-            )
 
-        )
-
-        var i = 0
-        val image = remember {
-            mutableStateOf(x[0])
-        }
-
-        LaunchedEffect(Unit) {
-            while (i < 3) {
-                image.value = x[i]
-                i++
-                delay(3000)
-                if (i == 3) {
-                    i = 0
-                }
-            }
-        }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Image(
-                painter = painterResource(id = image.value.pic), contentDescription = "",
-                modifier = Modifier.size(200.dp)
-            )
-            textout(
-                title = image.value.name,
-                modifier = Modifier,
-                fontStyle = MaterialTheme.typography.titleMedium
-            )
-            textout(
-                title = image.value.post,
-                modifier = Modifier,
-                fontStyle = MaterialTheme.typography.titleMedium
-            )
-
-        }
-
-
-    }
-*/
 
     @Composable
     fun textout(

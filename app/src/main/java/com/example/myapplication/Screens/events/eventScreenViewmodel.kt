@@ -3,8 +3,9 @@ package com.example.savera.Screens.events
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.savera.Model.events_Data
-import com.example.savera.Repository.AppRepository
+import com.example.myapplication.Model.events_Data
+import com.example.myapplication.repositary.AppRepository
+
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
