@@ -52,11 +52,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.rememberImagePainter
 import com.example.myapplication.Model.nameAndAtt
 import com.example.myapplication.R
+import com.example.myapplication.Screens.account.maimScreen.accountpic
 import com.example.myapplication.repositary.AppRepository
 import com.example.myapplication.ui.theme.ralewayfamilt
+import com.google.firebase.auth.FirebaseAuth
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -66,7 +70,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun homeui(youtubestate: MutableState<Float>, homeScreenViewModel: HomeScreenViewModel) {
+fun homeui(youtubestate: MutableState<Float>, homeScreenViewModel:HomeScreenViewModel ) {
 
     val openUrlLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
