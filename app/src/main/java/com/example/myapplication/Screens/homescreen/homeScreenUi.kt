@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.myapplication.Model.nameAndAtt
 import com.example.myapplication.R
-import com.example.myapplication.Screens.account.maimScreen.accountpic
+import com.example.myapplication.Screens.account.mainScreen.accountpic
 import com.example.myapplication.repositary.AppRepository
 import com.example.myapplication.ui.theme.ralewayfamilt
 import com.google.firebase.auth.FirebaseAuth

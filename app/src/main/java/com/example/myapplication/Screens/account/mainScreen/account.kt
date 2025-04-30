@@ -1,4 +1,4 @@
-package com.example.myapplication.Screens.account.maimScreen
+package com.example.myapplication.Screens.account.mainScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

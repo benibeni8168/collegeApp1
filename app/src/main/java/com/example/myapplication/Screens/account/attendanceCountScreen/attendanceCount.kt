@@ -1,10 +1,8 @@
 package com.example.savera.Screens.account.attendanceCountScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -27,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.myapplication.Model.UserInformation
 import com.example.myapplication.Screens.account.editScreen.topbar
-import com.example.myapplication.Screens.account.maimScreen.accountpic
+import com.example.myapplication.Screens.account.mainScreen.accountpic
 import com.example.myapplication.Screens.account.viewModel.AccountScreenViewmodel
 import com.example.myapplication.Screens.homescreen.textout
 import com.example.myapplication.ui.theme.lightrale
