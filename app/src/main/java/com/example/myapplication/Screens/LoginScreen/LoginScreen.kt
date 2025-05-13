@@ -57,9 +57,10 @@ import androidx.navigation.NavHostController
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.lightrale
 import com.example.myapplication.ui.theme.ralewayfamilt
+import com.google.firebase.auth.FirebaseAuth
 
 
-@SuppressLint("SuspiciousIndentation")
+@SuppressLint("SuspiciousIndentation", "ContextCastToActivity")
 @Composable
 fun LoginScreen(navController: NavHostController
                 ) {
@@ -94,6 +95,8 @@ fun LoginScreen(navController: NavHostController
         Animatable(0f)
     }
 
+    val context = LocalContext.current as Activity
+    val auth = FirebaseAuth.getInstance()
 
 
 
@@ -297,8 +300,23 @@ fun LoginScreen(navController: NavHostController
 
 
 
-                        onClick = {""
-
+                        onClick = {
+                            if (email.value.isNotBlank() && password.value.isNotBlank()) {
+                                auth.signInWithEmailAndPassword(email.value.trim(), password.value)
+                                    .addOnCompleteListener(context) { task ->
+                                        if (task.isSuccessful) {
+                                            // Navigate to next screen
+                                            navController.navigate("home") {
+                                                popUpTo("login") { inclusive = true }
+                                            }
+                                        } else {
+                                            // Show error dialog
+                                            showdialogue.value = true
+                                        }
+                                    }
+                            } else {
+                                showdialogue.value = true
+                            }
                         },
 
                         modifier = Modifier
