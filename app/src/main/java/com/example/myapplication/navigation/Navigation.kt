@@ -24,5 +24,6 @@ fun Navigation() {
         composable(route = Screens.LoginScreen.name) {
             LoginScreen(navController)
         }
+
     }
 }
