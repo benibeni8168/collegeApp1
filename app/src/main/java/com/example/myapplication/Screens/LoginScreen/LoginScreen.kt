@@ -55,18 +55,23 @@ import androidx.compose.ui.unit.times
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.myapplication.R
+import com.example.myapplication.Screens.LoginScreen.LoginScreenViewmodel
+import com.example.myapplication.navigation.Screens
 import com.example.myapplication.ui.theme.lightrale
 import com.example.myapplication.ui.theme.ralewayfamilt
-import com.google.firebase.auth.FirebaseAuth
 
 
 @SuppressLint("SuspiciousIndentation", "ContextCastToActivity")
 @Composable
-fun LoginScreen(navController: NavHostController
-                ) {
+fun LoginScreen(navController: NavHostController,
+                loginScreenViewmodel: LoginScreenViewmodel = viewModel()) {
 
+    val activity1 = LocalContext.current as? Activity
 
+    BackHandler {
+        activity1?.finish()
 
+    }
 
 
 
@@ -75,7 +80,9 @@ fun LoginScreen(navController: NavHostController
         mutableStateOf(false)
 
     }
-
+    val errormessage = remember {
+        loginScreenViewmodel.errormessage
+    }
 
 
     val showpassword = remember {
@@ -95,8 +102,6 @@ fun LoginScreen(navController: NavHostController
         Animatable(0f)
     }
 
-    val context = LocalContext.current as Activity
-    val auth = FirebaseAuth.getInstance()
 
 
 
@@ -178,6 +183,7 @@ fun LoginScreen(navController: NavHostController
 
                 Text(
                     text = "Email",
+                    fontFamily = ralewayfamilt,
                     fontSize = 3.em,
                     style = TextStyle(
 
@@ -301,21 +307,16 @@ fun LoginScreen(navController: NavHostController
 
 
                         onClick = {
-                            if (email.value.isNotBlank() && password.value.isNotBlank()) {
-                                auth.signInWithEmailAndPassword(email.value.trim(), password.value)
-                                    .addOnCompleteListener(context) { task ->
-                                        if (task.isSuccessful) {
-                                            // Navigate to next screen
-                                            navController.navigate("home") {
-                                                popUpTo("login") { inclusive = true }
-                                            }
-                                        } else {
-                                            // Show error dialog
-                                            showdialogue.value = true
-                                        }
-                                    }
-                            } else {
-                                showdialogue.value = true
+                            if (email.value.isNullOrEmpty()||password.value.length<=6){
+                                showdialogue.value= true
+                                errormessage.value = "Uh-oh! Either your email field is as empty as deep space, or your password is not playing by the rules. Remember, passwords should be at least 6 characters long."
+                            }
+
+
+                            else {
+                                val screen = Screens.LoadingScreen.name
+                                navController.navigate(route = "$screen/${email.value}/${password.value}")
+
                             }
                         },
 
@@ -352,7 +353,8 @@ fun LoginScreen(navController: NavHostController
 
             }
 
-
+            if (showdialogue.value)
+                alertbox(errormessage.value,showdialogue)
 
 
         }
