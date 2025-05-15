@@ -71,7 +71,6 @@ val notShowTop = remember {
 
 
 
-
     val activity = LocalContext.current as? Activity
 
     val selectindex = remember {
@@ -525,10 +524,7 @@ val notShowTop = remember {
                     notShowTop.value  = false
 
                 }
-                if (selectindex.value == 4) {
-                    attendanceScreenNav(selectindex,navController)
-                    notShowTop.value  = true
-                }
+
 
             } else {
                 chatScreen(userInfo,selectindex)
