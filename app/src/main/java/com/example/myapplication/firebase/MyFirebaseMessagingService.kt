@@ -23,7 +23,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
 
         remoteMessage.notification?.let {
-            Log.d("lakshay", "Message Notification Body: ${it.body}")
+            Log.d("Prince", "Message Notification Body: ${it.body}")
             it.body?.let { body -> sendNotification(body) }
         }
 
