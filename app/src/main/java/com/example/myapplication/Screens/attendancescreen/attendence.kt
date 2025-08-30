@@ -66,6 +66,8 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
+
+
 @SuppressLint("UnrememberedMutableState", "CoroutineCreationDuringComposition",
     "SuspiciousIndentation"
 )
@@ -93,16 +95,16 @@ fun AttendanceScreen(
     }
     val list = AttendanceScreenViewmodel.list.collectAsState()
 
-    
+
 
     val studentSubmit = remember {
         mutableStateOf(false)
     }
-    
+
     val AttendanceTaken = remember {
         mutableStateOf(false)
     }
-    
+
 
     BackHandler {
         selectindex.value = 2
@@ -132,7 +134,7 @@ fun AttendanceScreen(
         modifier = Modifier.fillMaxSize(),
         color = Color.White
     ) {
-       
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -214,18 +216,18 @@ fun AttendanceScreen(
 
                                         onClick = {
 
-                                        selectedItemInAttendance.value = it
+                                            selectedItemInAttendance.value = it
                                             AttendanceScreenViewmodel.fetchstudentslist(it)
                                             dropdownmenu.value = false
-                                        AttendanceScreenViewmodel.checkAttendance(date =formattedDate,
-                                            nottaken = {
-                                                       AttendanceTaken.value = false},
-                                            taken = {
-                                               AttendanceTaken.value = true
-                                            },
-                                            classname = it)
+                                            AttendanceScreenViewmodel.checkAttendance(date =formattedDate,
+                                                nottaken = {
+                                                    AttendanceTaken.value = false},
+                                                taken = {
+                                                    AttendanceTaken.value = true
+                                                },
+                                                classname = it)
 
-                                    }
+                                        }
 
                                     )
 
@@ -245,113 +247,113 @@ fun AttendanceScreen(
 
             if (studentList.value.isNotEmpty() && !selectedItemInAttendance.value.isNullOrEmpty())
                 if (!AttendanceTaken.value)
-                LazyColumn(
-                    modifier = Modifier
-                        .background(
-                            color = Color(0xffF9A825),
-                            shape = RoundedCornerShape(20.dp)
-                        )
-                        .padding(10.dp)
+                    LazyColumn(
+                        modifier = Modifier
+                            .background(
+                                color = Color(0xffF9A825),
+                                shape = RoundedCornerShape(20.dp)
+                            )
+                            .padding(10.dp)
 
-                ) {
-                    item {
-                        Row(
-                            modifier = Modifier
+                    ) {
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        start = 10.dp, top = 10.dp,
+                                        end = 10.dp
+                                    ),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Surface(
+                                    modifier = Modifier,
+                                    shape = RoundedCornerShape(
+                                        topStart = 25.dp,
+                                        bottomEnd = 25.dp,
+                                    ), color = Color(0xffD9D9D9).copy(alpha = 0.4f)
+                                ) {
+                                    textout(
+                                        title = "Name", modifier = Modifier.padding(10.dp),
+                                        fontStyle = MaterialTheme.typography.bodyMedium,
+                                        color = Color.White
+                                    )
+                                }
+                                Surface(
+                                    modifier = Modifier,
+                                    shape = RoundedCornerShape(
+                                        topStart = 25.dp,
+                                        bottomEnd = 25.dp
+                                    ),
+                                    color = Color(0xffD9D9D9).copy(alpha = 0.4f)
+                                ) {
+                                    textout(
+                                        title = "Mark(Present/Absent)",
+                                        modifier = Modifier.padding(10.dp),
+                                        fontStyle = MaterialTheme.typography.bodyMedium,
+                                        color = Color.White
+                                    )
+                                }
+
+
+                            }
+
+                            Spacer(modifier = Modifier.height(10.dp))
+                        }
+                        item {
+
+                        }
+                        items(studentList.value) {
+
+
+                            val Selection = studentSelectionMap.getOrPut(it) {
+                                mutableStateOf(0)
+                            }
+
+
+                            studentname(
+                                it,
+                                Selection,
+                                AttendanceScreenViewmodel,
+                                formattedDate,
+                                selectedItemInAttendance.value,
+                                currentDayOfWeek
+                            )
+                        }
+
+
+                        item {
+
+                            Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(
-                                    start = 10.dp, top = 10.dp,
-                                    end = 10.dp
-                                ),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Surface(
-                                modifier = Modifier,
-                                shape = RoundedCornerShape(
-                                    topStart = 25.dp,
-                                    bottomEnd = 25.dp,
-                                ), color = Color(0xffD9D9D9).copy(alpha = 0.4f)
-                            ) {
-                                textout(
-                                    title = "Name", modifier = Modifier.padding(10.dp),
-                                    fontStyle = MaterialTheme.typography.bodyMedium,
-                                    color = Color.White
-                                )
+                                .padding(10.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically) {
+
+
+                                button(text = "Submit"){
+                                    studentSubmit.value = true
+
+                                }
+
+
+
                             }
-                            Surface(
-                                modifier = Modifier,
-                                shape = RoundedCornerShape(
-                                    topStart = 25.dp,
-                                    bottomEnd = 25.dp
-                                ),
-                                color = Color(0xffD9D9D9).copy(alpha = 0.4f)
-                            ) {
-                                textout(
-                                    title = "Mark(Present/Absent)",
-                                    modifier = Modifier.padding(10.dp),
-                                    fontStyle = MaterialTheme.typography.bodyMedium,
-                                    color = Color.White
-                                )
-                            }
-
-
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-                    }
-item {
-
-                    }
-    items(studentList.value) {
-
-
-        val Selection = studentSelectionMap.getOrPut(it) {
-            mutableStateOf(0)
-        }
-
-
-        studentname(
-            it,
-            Selection,
-            AttendanceScreenViewmodel,
-            formattedDate,
-            selectedItemInAttendance.value,
-            currentDayOfWeek
-        )
-    }
-
-
-                item {
-
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically) {
-
-
-                        button(text = "Submit"){
-                            studentSubmit.value = true
 
                         }
 
 
-
                     }
 
-                }
 
 
-                }
-
-
-            
             if (studentSubmit.value){
                 ShowDialogue(
                     studentSubmit,
                     studentSelectionMap,
                     AttendanceScreenViewmodel,
                     selectedItemInAttendance
-                    )
+                )
             }
 
             if (!selectedItemInAttendance.value.isNullOrEmpty() && studentList.value.isNullOrEmpty()&&!AttendanceTaken.value) {
@@ -360,10 +362,10 @@ item {
             if (AttendanceTaken.value){
                 attendanceTaken()
             }
-            
-            
-            
-            
+
+
+
+
             if (selectedItemInAttendance.value.isNullOrEmpty()) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -391,15 +393,15 @@ fun attendanceTaken() {
         val x = remember {
             androidx.compose.animation.core.Animatable(0.5f)
         }
-       LaunchedEffect(Unit) {
-           x.animateTo(
-               targetValue = 1f,
-               animationSpec = infiniteRepeatable(
-                   animation = tween(durationMillis = 1000),
-                   repeatMode = RepeatMode.Reverse
-               )
-           )
-       }
+        LaunchedEffect(Unit) {
+            x.animateTo(
+                targetValue = 1f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(durationMillis = 1000),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+        }
 
         Image(painter = painterResource(id = R.drawable.checklist), contentDescription ="",
             modifier = Modifier.scale(x.value))
@@ -427,8 +429,8 @@ fun ShowDialogue(
     Dialog(onDismissRequest = { /*TODO*/ }) {
 
         val Studentleft = remember {
-        mutableStateOf(false)
-    }
+            mutableStateOf(false)
+        }
         var error = remember {
             mutableStateOf("")
         }
@@ -472,7 +474,7 @@ fun ShowDialogue(
 
                         textout(
                             title =
-                            "Looks like we're missing a few brain cells in the counting department! Should we send out a search party for the lost students?",
+                                "Looks like we're missing a few brain cells in the counting department! Should we send out a search party for the lost students?",
                             modifier = Modifier,
                             fontStyle = MaterialTheme.typography.bodyMedium
                         )
@@ -573,35 +575,35 @@ fun ShowDialogue(
             }
         }
 
-            if (state.value == 2){
-                Surface {
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        textout(title = error.value, modifier = Modifier, fontStyle =MaterialTheme.typography.bodyLarge )
-                        button(text = "Ok") {
-                            studentSubmit.value = false
-                        }
+        if (state.value == 2){
+            Surface {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    textout(title = error.value, modifier = Modifier, fontStyle =MaterialTheme.typography.bodyLarge )
+                    button(text = "Ok") {
+                        studentSubmit.value = false
                     }
                 }
-
-
             }
-
-
-
-            if (state.value==3){
-                animation(newUser =studentSubmit , Boolean = false, state =state )
-            }
-
 
 
         }
 
+
+
+        if (state.value==3){
+            animation(newUser =studentSubmit , Boolean = false, state =state )
+        }
+
+
+
     }
+
+}
 
 
 
@@ -636,10 +638,10 @@ fun studentname(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-           textout(
-               title = it, modifier = Modifier.weight(1f),
-               fontStyle =MaterialTheme.typography.bodyLarge,
-               color = Color.White)
+            textout(
+                title = it, modifier = Modifier.weight(1f),
+                fontStyle =MaterialTheme.typography.bodyLarge,
+                color = Color.White)
 
 
 
@@ -651,10 +653,10 @@ fun studentname(
                     modifier = Modifier.horizontalScroll(rememberScrollState())) {
 
 
-                  textout(
-                      title = "Present", modifier = Modifier,
-                      fontStyle =MaterialTheme.typography.bodyMedium,
-                      color = Color.White)
+                    textout(
+                        title = "Present", modifier = Modifier,
+                        fontStyle =MaterialTheme.typography.bodyMedium,
+                        color = Color.White)
 
 
                     RadioButton(
@@ -678,7 +680,7 @@ fun studentname(
                             unselectedColor = Color(0xff008133),
                             disabledUnselectedColor = Color(0xff008133)
                         )
-                    , modifier = Modifier.weight(1f)
+                        , modifier = Modifier.weight(1f)
                     )
                 }
             }
@@ -690,7 +692,7 @@ fun studentname(
                 modifier = Modifier.weight(1f), color = Color.Transparent
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically,
-                   ) {
+                ) {
 
                     textout(
                         title = "Absent", modifier = Modifier, fontStyle =MaterialTheme.typography.bodyMedium,

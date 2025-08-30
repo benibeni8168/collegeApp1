@@ -511,40 +511,34 @@ fun homeui(youtubestate: MutableState<Float>, homeScreenViewModel:HomeScreenView
     }
 
 
-    @Composable
-    fun YouTubePlayer(
-        savedPosition: MutableState<Float>,
-    ) {
+@Composable
 
-        val youtubeVideoId = rememberSaveable { mutableStateOf("z8cqhEywCzc") }
+fun YouTubePlayer(savedPosition: MutableState<Float>) {
+    val youtubeVideoId = rememberSaveable { mutableStateOf("z8cqhEywCzc") }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-        val savedState = rememberSaveable { mutableStateOf(youtubeVideoId.value) }
-
-        val lifecycleOwner = LocalLifecycleOwner.current
-
-        AndroidView(modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
             .clip(RoundedCornerShape(16.dp)),
-            factory = { context ->
+        factory = { context ->
+            YouTubePlayerView(context).apply {
+                // attach lifecycle observer
+                lifecycleOwner.lifecycle.addObserver(this@apply)
 
-                YouTubePlayerView(context = context).apply {
-                    lifecycleOwner.lifecycle.addObserver(this)
+                addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        // try cueVideo first (safer than loadVideo)
+                        youTubePlayer.cueVideo(youtubeVideoId.value, savedPosition.value)
+                        youTubePlayer.setVolume(100)
+                    }
 
-                    addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-
-                            youTubePlayer.loadVideo(savedState.value, savedPosition.value)
-                            youTubePlayer.setVolume(0)
-
-                        }
-
-                        override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-
-                            savedPosition.value = second
-
-                        }
-                    })
-                }
-            })
-    }
+                    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+                        savedPosition.value = second
+                    }
+                })
+            }
+        }
+    )
+}

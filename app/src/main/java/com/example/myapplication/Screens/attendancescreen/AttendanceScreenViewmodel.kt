@@ -9,6 +9,9 @@ import com.example.myapplication.repositary.AppRepository
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlin.toString
+
+
 
 class AttendanceScreenViewmodel:ViewModel() {
 
@@ -20,7 +23,7 @@ class AttendanceScreenViewmodel:ViewModel() {
         AppRepository.GetStudentList(
             documentPath = classname,
             onSuccess = {
-               Student_List.value = it
+                Student_List.value = it
             },
             collectionName = "Classes",
             onFailure = {
@@ -42,8 +45,8 @@ class AttendanceScreenViewmodel:ViewModel() {
     fun fetchDocumentsFromCollection() {
         AppRepository.fetchDocuments("Classes",
             onSuccess = { documentList ->
-          Log.d("lissssssssssssssssss",documentList.toString())
-           list.value = documentList
+                Log.d("lissssssssssssssssss",documentList.toString())
+                list.value = documentList
 
 
             },
@@ -79,7 +82,7 @@ class AttendanceScreenViewmodel:ViewModel() {
     fun addPresent(classname: String,hashMap: HashMap<String,String>,
                    successful:()->Unit,
                    error: (String) -> Unit
-                   ) {
+    ) {
         viewModelScope.launch {
             AppRepository.addfeedback(
                 collectionName = "Classes",
@@ -95,23 +98,29 @@ class AttendanceScreenViewmodel:ViewModel() {
         }
     }
 
-// checking attendance taken or not
+    // checking attendance taken or not
     fun checkAttendance(classname: String,
                         date: String,
                         taken:()->Unit,
                         nottaken:()->Unit) {
-    viewModelScope.launch {
-        AppRepository.checkAttendanceTakenOrNot(
-            className = classname,
-            date = date,
-            taken = {
+        viewModelScope.launch {
+            AppRepository.checkAttendanceTakenOrNot(
+                className = classname,
+                date = date,
+                taken = {
                     taken()
-            },
-            nottaken = {
-nottaken()
-            }
-        )
+                },
+                nottaken = {
+                    nottaken()
+                }
+            )
+        }
+
     }
 
-}
+
+
+
+
+
 }

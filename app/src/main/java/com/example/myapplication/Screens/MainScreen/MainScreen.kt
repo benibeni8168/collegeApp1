@@ -44,10 +44,12 @@ import com.example.savera.Components.ChatScreenTopBar
 import com.example.savera.Components.TopAppBar
 
 import com.example.savera.Screens.ChatsScreen.chatScreen
+import com.example.savera.Screens.account.attendanceScreenNav
 
 import com.example.savera.Screens.attendanceScreen.AttendanceScreen
+import com.example.savera.Screens.dashboard.dashboard
+import com.example.savera.Screens.dashboard.viewmodel.dashboardViewmodal
 import com.example.savera.Screens.events.eventscreen
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SuspiciousIndentation", "UnrememberedMutableInteractionSource",
@@ -56,14 +58,28 @@ import com.example.savera.Screens.events.eventscreen
 @Composable
 fun MainScreen(navController: NavHostController) {
 
-val notShowTop = remember {
-    mutableStateOf(false)
-}
+    val notShowTop = remember {
+        mutableStateOf(false)
+    }
+
+    val dashboardViewmodal : dashboardViewmodal = viewModel()
 
 
 
     val userInfo = remember {
         mutableStateOf<UserInformation?>(null)
+    }
+    LaunchedEffect(Unit) {
+        dashboardViewmodal.fetchUserDetails(
+            info = {
+
+                userInfo.value = it
+
+            },
+            failure = {
+
+            }
+        )
     }
 
 
@@ -92,10 +108,8 @@ val notShowTop = remember {
                 ChatScreenTopBar(showmessagetopbar)
             else
                 if (!notShowTop.value)
-                TopAppBar(title = "", showmessagetopbar)
+                    TopAppBar(title = "", showmessagetopbar)
         },
-
-
         bottomBar = {
             if (!showmessagetopbar.value)
 
@@ -134,13 +148,13 @@ val notShowTop = remember {
                                 color = Color(0xffF9A825),
                                 border = BorderStroke(
                                     color =
-                                    if (selectindex.value == 0
-                                    )
-                                        Color.White
-                                    else
-                                        Color(
-                                            0xffF9A825
-                                        ), width = 2.dp
+                                        if (selectindex.value == 0
+                                        )
+                                            Color.White
+                                        else
+                                            Color(
+                                                0xffF9A825
+                                            ), width = 2.dp
                                 )
                             ) {
 
@@ -169,7 +183,7 @@ val notShowTop = remember {
                                             Text(
                                                 text = "Home", color = Color.White,
                                                 fontFamily = ralewayfamilt,
-                                                 style =  MaterialTheme.typography.titleMedium
+                                                style =  MaterialTheme.typography.titleMedium
                                             )
                                         }
                                     }
@@ -206,12 +220,12 @@ val notShowTop = remember {
                                 color = Color(0xffF9A825),
                                 border = BorderStroke(
                                     color =
-                                    if (selectindex.value == 1)
-                                        Color.White
-                                    else
-                                        Color(
-                                            0xffF9A825
-                                        ), width = 2.dp
+                                        if (selectindex.value == 1)
+                                            Color.White
+                                        else
+                                            Color(
+                                                0xffF9A825
+                                            ), width = 2.dp
                                 )
                             ) {
 
@@ -239,7 +253,7 @@ val notShowTop = remember {
                                             Text(
                                                 text = "Attendance", color = Color.White,
                                                 fontFamily = ralewayfamilt,
-                                                 style =  MaterialTheme.typography.titleMedium
+                                                style =  MaterialTheme.typography.titleMedium
                                             )
                                         }
                                     }
@@ -277,12 +291,12 @@ val notShowTop = remember {
                                 color = Color(0xffF9A825),
                                 border = BorderStroke(
                                     color =
-                                    if (selectindex.value == 2)
-                                        Color.White
-                                    else
-                                        Color(
-                                            0xffF9A825
-                                        ), width = 2.dp
+                                        if (selectindex.value == 2)
+                                            Color.White
+                                        else
+                                            Color(
+                                                0xffF9A825
+                                            ), width = 2.dp
                                 )
                             ) {
 
@@ -350,12 +364,12 @@ val notShowTop = remember {
                                 color = Color(0xffF9A825),
                                 border = BorderStroke(
                                     color =
-                                    if (selectindex.value == 3)
-                                        Color.White
-                                    else
-                                        Color(
-                                            0xffF9A825
-                                        ), width = 2.dp
+                                        if (selectindex.value == 3)
+                                            Color.White
+                                        else
+                                            Color(
+                                                0xffF9A825
+                                            ), width = 2.dp
                                 )
                             ) {
 
@@ -384,7 +398,7 @@ val notShowTop = remember {
                                                 text = "Events", color = Color.White,
 
                                                 fontFamily = ralewayfamilt,
-                                                 style =  MaterialTheme.typography.titleMedium
+                                                style =  MaterialTheme.typography.titleMedium
                                             )
                                         }
                                     }
@@ -423,12 +437,12 @@ val notShowTop = remember {
                                 color = Color(0xffF9A825),
                                 border = BorderStroke(
                                     color =
-                                    if (selectindex.value == 4)
-                                        Color.White
-                                    else
-                                        Color(
-                                            0xffF9A825
-                                        ), width = 2.dp
+                                        if (selectindex.value == 4)
+                                            Color.White
+                                        else
+                                            Color(
+                                                0xffF9A825
+                                            ), width = 2.dp
                                 )
                             ) {
 
@@ -460,7 +474,7 @@ val notShowTop = remember {
                                                 text = "Account", color = Color.White,
 
                                                 fontFamily = ralewayfamilt
-                                           , style =  MaterialTheme.typography.titleMedium
+                                                , style =  MaterialTheme.typography.titleMedium
 
                                             )
                                         }
@@ -500,12 +514,12 @@ val notShowTop = remember {
 
             if (!showmessagetopbar.value) {
                 if (selectindex.value == 0) {
-    notShowTop.value  = false
+                    notShowTop.value  = false
                     homeScreen(selectindex = selectindex)
                 }
                 if (selectindex.value == 1) {
 
-                        notShowTop.value  = false
+                    notShowTop.value  = false
 
 
                     AttendanceScreen(selectindex,
@@ -517,6 +531,7 @@ val notShowTop = remember {
 
 
 
+                    dashboard(selectindex = selectindex,notShowTop,userInfo)
 
                 }
                 if (selectindex.value == 3) {
@@ -524,11 +539,15 @@ val notShowTop = remember {
                     notShowTop.value  = false
 
                 }
-
+                if (selectindex.value == 4) {
+                    attendanceScreenNav(selectindex,navController)
+                    notShowTop.value  = true
+                }
 
             } else {
                 chatScreen(userInfo,selectindex)
             }
+
+            }
         }
     }
-}

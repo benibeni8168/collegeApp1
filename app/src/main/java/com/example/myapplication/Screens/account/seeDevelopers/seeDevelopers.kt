@@ -23,14 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.myapplication.R
-import com.example.myapplication.Screens.account.editScreen.topbar
 import com.example.myapplication.Screens.homescreen.button
 import com.example.myapplication.Screens.homescreen.textout
 import com.example.myapplication.ui.theme.lightrale
+import com.example.savera.Screens.account.editScreen.topbar
 
 
 @Composable
@@ -49,13 +48,11 @@ fun seeDevops(nav: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(9.dp)
         ) {
-            topbar(nav = nav,
-                Heading = "Developers"
-            )
+           topbar(nav=nav, Heading = "Developers")
             Spacer(modifier = Modifier.height(20.dp))
             imageShow(
-                name = "Alok Pandit",
-                post ="UI Designer" ,
+                name = "Prince",
+                post ="Android Developer" ,
                 onClick = {
                     val intent = Intent(
                         Intent.ACTION_VIEW,
@@ -71,7 +68,7 @@ fun seeDevops(nav: NavHostController) {
             Spacer(modifier = Modifier.height(20.dp))
 
             imageShow(
-                name = "Mannu",
+                name = "Bhavya",
                 post ="Android Developer" ,
                 onClick = {
                     val intent = Intent(
